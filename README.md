@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎓 Magna Cum Laude
+# 🎓 ARB Institute 
 ### *University GPA Calculator*
 
 **Calculate your Semester GPA instantly and accurately.**
