@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Magna Cum Laude — University GPA Calculator</title>
+<meta name="description" content="A premium, accessible semester GPA calculator for university students." />
+
+<!-- Fonts: a serif display face for institutional gravity, a sans body face for clarity, a mono face for figures -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Ambient CSS-only particles (institutional dust / light motes) -->
+<div class="particle-field" aria-hidden="true">
+  <span class="mote"></span><span class="mote"></span><span class="mote"></span>
+  <span class="mote"></span><span class="mote"></span><span class="mote"></span>
+  <span class="mote"></span><span class="mote"></span><span class="mote"></span>
+  <span class="mote"></span><span class="mote"></span><span class="mote"></span>
+</div>
+
+<div class="aurora" aria-hidden="true"></div>
+
+<!-- Skip link for keyboard users -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ============ STICKY NAVIGATION ============ -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="brand-seal" viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="1"/>
+        <path d="M24 12 L34 18 L24 24 L14 18 Z" fill="currentColor"/>
+        <path d="M16 20.5 V27 Q24 31 32 27 V20.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="34" y1="18" x2="34" y2="26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-title">Magna&nbsp;Cum&nbsp;Laude</span>
+        <span class="brand-subtitle">Office of the Registrar &middot; GPA Services</span>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="live-clock" id="liveClock" aria-live="off">
+        <span id="clockDate">—</span>
+        <span class="clock-dot" aria-hidden="true">&middot;</span>
+        <span id="clockTime">—</span>
+      </div>
+
+      <button id="themeToggle" class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+        <span class="toggle-track">
+          <span class="toggle-thumb">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/><line x1="4.4" y1="4.4" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.6" y2="19.6"/><line x1="4.4" y1="19.6" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.6" y2="4.4"/></g></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" fill="currentColor"/></svg>
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="eyebrow">Semester Records &nbsp;/&nbsp; Academic Year 2025&ndash;2026</p>
+      <h1 id="hero-title">University GPA Calculator</h1>
+      <p class="hero-subtitle">Calculate your Semester GPA instantly and accurately.</p>
+
+      <div class="hero-scale" aria-hidden="true">
+        <svg viewBox="0 0 320 90" class="scale-svg">
+          <defs>
+            <linearGradient id="scaleGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="var(--accent-crimson)"/>
+              <stop offset="55%" stop-color="var(--accent-gold)"/>
+              <stop offset="100%" stop-color="var(--accent-emerald)"/>
+            </linearGradient>
+          </defs>
+          <line x1="10" y1="70" x2="310" y2="70" stroke="url(#scaleGrad)" stroke-width="3" stroke-linecap="round"/>
+          <g id="scaleTicks" font-family="'JetBrains Mono', monospace" font-size="10" fill="currentColor" opacity="0.65">
+            <line x1="10" y1="64" x2="10" y2="76" stroke="currentColor" stroke-width="1.5"/>
+            <text x="10" y="88" text-anchor="middle">0.0</text>
+            <line x1="85" y1="64" x2="85" y2="76" stroke="currentColor" stroke-width="1.5"/>
+            <text x="85" y="88" text-anchor="middle">1.0</text>
+            <line x1="160" y1="64" x2="160" y2="76" stroke="currentColor" stroke-width="1.5"/>
+            <text x="160" y="88" text-anchor="middle">2.0</text>
+            <line x1="235" y1="64" x2="235" y2="76" stroke="currentColor" stroke-width="1.5"/>
+            <text x="235" y="88" text-anchor="middle">3.0</text>
+            <line x1="310" y1="64" x2="310" y2="76" stroke="currentColor" stroke-width="1.5"/>
+            <text x="310" y="88" text-anchor="middle">4.0</text>
+          </g>
+          <circle id="scaleMarker" cx="10" cy="70" r="7" fill="var(--surface)" stroke="var(--accent-gold)" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="stage">
+
+    <!-- ============ SETUP CARD ============ -->
+    <section class="card glass setup-card" id="setupCard" aria-labelledby="setup-title">
+      <div class="card-kicker">Step 01</div>
+      <h2 id="setup-title">Enter Number of Subjects</h2>
+      <p class="card-hint">Tell us how many courses to include in this semester's calculation.</p>
+
+      <form id="setupForm" novalidate>
+        <div class="field-row">
+          <label for="subjectCount" class="field-label">Number of Subjects</label>
+          <input
+            type="number"
+            id="subjectCount"
+            name="subjectCount"
+            class="text-input"
+            inputmode="numeric"
+            min="1"
+            max="12"
+            step="1"
+            placeholder="e.g. 5"
+            autocomplete="off"
+            aria-describedby="subjectCountError"
+            required
+          />
+          <p class="error-msg" id="subjectCountError" role="alert" aria-live="assertive"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large" id="generateBtn">
+          <span>Generate Subjects</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- ============ SUBJECTS CARD ============ -->
+    <section class="card glass subjects-card" id="subjectsCard" hidden aria-labelledby="subjects-title">
+      <div class="card-kicker">Step 02</div>
+      <h2 id="subjects-title">Course Entries</h2>
+      <p class="card-hint">Enter the credit hours and GPA earned for each course.</p>
+
+      <div id="subjectsList" class="subjects-list"></div>
+
+      <div class="action-row">
+        <button type="button" class="btn btn-primary btn-large" id="calculateBtn">
+          <span>Calculate GPA</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 11l3 3L22 4M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="btn btn-ghost btn-large" id="resetBtnTop">
+          <span>Reset</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ RESULT CARD ============ -->
+    <section class="card glass result-card" id="resultCard" hidden aria-labelledby="result-title">
+      <div class="card-kicker">Official Result</div>
+      <h2 id="result-title">Semester Summary</h2>
+
+      <div class="result-hero">
+        <div class="result-gpa-ring">
+          <svg viewBox="0 0 140 140" class="ring-svg" aria-hidden="true">
+            <circle cx="70" cy="70" r="60" class="ring-track"/>
+            <circle cx="70" cy="70" r="60" class="ring-fill" id="ringFill"/>
+          </svg>
+          <div class="result-gpa-value">
+            <span id="resultGpaNumber">0.00</span>
+            <span class="gpa-unit">GPA</span>
+          </div>
+        </div>
+
+        <div class="result-message" id="resultMessage">
+          <div class="result-badge" id="resultBadge">
+            <svg id="resultIcon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"></svg>
+          </div>
+          <p class="result-label" id="resultLabel">Awaiting calculation</p>
+        </div>
+      </div>
+
+      <dl class="result-stats">
+        <div class="stat-block">
+          <dt>Total Credit Hours</dt>
+          <dd id="resultCreditHours">0.00</dd>
+        </div>
+        <div class="stat-block">
+          <dt>Total Quality Points</dt>
+          <dd id="resultQualityPoints">0.00</dd>
+        </div>
+        <div class="stat-block">
+          <dt>Courses Recorded</dt>
+          <dd id="resultCourseCount">0</dd>
+        </div>
+      </dl>
+
+      <button type="button" class="btn btn-ghost btn-large" id="resetBtnBottom">
+        <span>Calculate Another Semester</span>
+      </button>
+    </section>
+
+  </div>
+
+  <div class="loading-overlay" id="loadingOverlay" hidden aria-hidden="true">
+    <div class="loading-seal">
+      <svg viewBox="0 0 48 48" width="48" height="48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="90 40"/></svg>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; <span id="footerYear"></span> Magna Cum Laude Registrar Services. Built for students, by students.</p>
+    <p class="footer-fine">Calculations follow the standard 4.00-scale quality point method. Verify against your institution's official transcript.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+        </html>
