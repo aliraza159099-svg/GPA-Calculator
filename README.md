@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎓 ARB Institute 
+# 🎓 ARB 
 ### *University GPA Calculator*
 
 **Calculate your Semester GPA instantly and accurately.**
@@ -16,7 +16,7 @@
 
 ## 📖 Overview
 
-**Magna Cum Laude** is a premium, single-page GPA calculator built for university students. It walks a student through entering their courses, validates every input, and returns an animated result card with their **Semester GPA**, **Total Quality Points**, and a performance rating — all wrapped in a registrar-office aesthetic with dark/light themes, voice guidance, and sound feedback.
+**ARB Site** is a premium, single-page GPA calculator built for university students. It walks a student through entering their courses, validates every input, and returns an animated result card with their **Semester GPA**, **Total Quality Points**, and a performance rating — all wrapped in a registrar-office aesthetic with dark/light themes, voice guidance, and sound feedback.
 
 No frameworks. No build step. Just **HTML, CSS, and vanilla JavaScript**.
 
