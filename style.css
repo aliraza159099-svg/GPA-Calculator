@@ -684,6 +684,9 @@ html[data-theme="dark"] .icon-moon { opacity: 1; transform: scale(1) rotate(0); 
   background: color-mix(in srgb, var(--bg-1) 70%, transparent);
   backdrop-filter: blur(6px);
 }
+.loading-overlay[hidden] {
+  display: none !important;
+}
 .loading-seal { color: var(--accent-gold); animation: spin 1.1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
