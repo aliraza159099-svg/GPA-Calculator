@@ -1,7 +1,7 @@
 'use strict';
 
 /* ==========================================================================
-   MAGNA CUM LAUDE — University GPA Calculator
+   ARB Institute — University GPA Calculator
    Vanilla ES6, no dependencies.
    ========================================================================== */
 
