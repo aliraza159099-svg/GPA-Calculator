@@ -567,6 +567,35 @@ html[data-theme="dark"] .icon-moon { opacity: 1; transform: scale(1) rotate(0); 
 }
 .mini-error.show { display: block; }
 
+/* ---- Dropdown (select) styling for Credit Hours & GPA pickers ---- */
+select.mini-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--input-bg);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%237c869a'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px;
+  cursor: pointer;
+}
+select.mini-input:invalid,
+select.mini-input option[value=""] {
+  color: var(--text-muted);
+}
+
+select.text-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--input-bg);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='7'><path d='M0 0l6 7 6-7z' fill='%237c869a'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .subject-row { grid-template-columns: 32px 1fr 1fr; padding: 12px; gap: 8px; }
   .subject-index { width: 32px; height: 32px; font-size: 12px; }
