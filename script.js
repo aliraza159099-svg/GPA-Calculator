@@ -236,11 +236,29 @@ setupForm.addEventListener('submit', (e) => {
     loadingOverlay.hidden = true;
     subjectsCard.hidden = false;
     subjectsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    speak('Please enter the credit hours and G P A for each subject.');
+    speak('Please select the credit hours and grade for each subject.');
     const firstInput = subjectsList.querySelector('.mini-input');
     if (firstInput) firstInput.focus({ preventScroll: true });
   }, 420);
 });
+
+/* Grade options shown in the GPA dropdown, in display order. */
+const GRADE_OPTIONS = [
+  { value: '4.00', label: 'A (4.00)' },
+  { value: '3.66', label: 'A- (3.66)' },
+  { value: '3.33', label: 'B+ (3.33)' },
+  { value: '3.00', label: 'B (3.00)' },
+  { value: '2.66', label: 'B- (2.66)' },
+  { value: '2.33', label: 'C+ (2.33)' },
+  { value: '2.00', label: 'C (2.00)' },
+  { value: '1.66', label: 'C- (1.66)' },
+  { value: '1.33', label: 'D+ (1.33)' },
+  { value: '1.00', label: 'D (1.00)' },
+  { value: '0.00', label: 'F (0.00)' },
+];
+
+/* Credit hour options shown in the Credit Hours dropdown. */
+const CREDIT_OPTIONS = [1, 2, 3, 4, 5];
 
 function buildSubjectRows(count) {
   subjectsList.innerHTML = '';
@@ -251,37 +269,40 @@ function buildSubjectRows(count) {
     row.className = 'subject-row';
     row.style.animationDelay = `${i * 0.06}s`;
 
+    const creditOptionsHtml = CREDIT_OPTIONS
+      .map((c) => `<option value="${c}">${c}</option>`)
+      .join('');
+
+    const gradeOptionsHtml = GRADE_OPTIONS
+      .map((g) => `<option value="${g.value}">${g.label}</option>`)
+      .join('');
+
     row.innerHTML = `
       <div class="subject-index" aria-hidden="true">${i}</div>
       <div class="subject-fields">
         <div class="mini-field">
           <label for="credit-${i}">Subject ${i} &middot; Credit Hours</label>
-          <input
-            type="number"
+          <select
             id="credit-${i}"
             class="mini-input credit-input"
-            inputmode="decimal"
-            step="0.5"
-            min="0.5"
-            placeholder="e.g. 3"
             data-subject="${i}"
             aria-describedby="credit-err-${i}"
-          />
+          >
+            <option value="" disabled selected>Select</option>
+            ${creditOptionsHtml}
+          </select>
         </div>
         <div class="mini-field">
-          <label for="gpa-${i}">Subject ${i} &middot; GPA (0.00&ndash;4.00)</label>
-          <input
-            type="number"
+          <label for="gpa-${i}">Subject ${i} &middot; GPA</label>
+          <select
             id="gpa-${i}"
             class="mini-input gpa-input"
-            inputmode="decimal"
-            step="0.01"
-            min="0"
-            max="4"
-            placeholder="e.g. 3.67"
             data-subject="${i}"
             aria-describedby="gpa-err-${i}"
-          />
+          >
+            <option value="" disabled selected>Select</option>
+            ${gradeOptionsHtml}
+          </select>
         </div>
       </div>
       <p class="mini-error" id="credit-err-${i}" role="alert"></p>
@@ -294,7 +315,7 @@ function buildSubjectRows(count) {
 
   // Live-clear validation styling as the user corrects values.
   subjectsList.querySelectorAll('.mini-input').forEach((input) => {
-    input.addEventListener('input', () => {
+    input.addEventListener('change', () => {
       input.classList.remove('invalid');
       input.removeAttribute('aria-invalid');
       const isCredit = input.classList.contains('credit-input');
@@ -328,10 +349,10 @@ calculateBtn.addEventListener('click', () => {
 
     let rowValid = true;
 
-    if (creditInput.value.trim() === '' || !Number.isFinite(creditVal) || creditVal <= 0) {
+    if (creditInput.value === '' || !Number.isFinite(creditVal) || creditVal <= 0) {
       creditInput.classList.add('invalid');
       creditInput.setAttribute('aria-invalid', 'true');
-      creditErr.textContent = 'Enter a positive number of credit hours.';
+      creditErr.textContent = 'Please select credit hours.';
       creditErr.classList.add('show');
       rowValid = false;
     } else {
@@ -340,10 +361,10 @@ calculateBtn.addEventListener('click', () => {
       creditErr.classList.remove('show');
     }
 
-    if (gpaInput.value.trim() === '' || !Number.isFinite(gpaVal) || gpaVal < 0 || gpaVal > 4) {
+    if (gpaInput.value === '' || !Number.isFinite(gpaVal) || gpaVal < 0 || gpaVal > 4) {
       gpaInput.classList.add('invalid');
       gpaInput.setAttribute('aria-invalid', 'true');
-      gpaErr.textContent = 'Enter a GPA between 0.00 and 4.00.';
+      gpaErr.textContent = 'Please select a grade.';
       gpaErr.classList.add('show');
       rowValid = false;
     } else {
